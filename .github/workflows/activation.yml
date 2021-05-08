@@ -2,20 +2,20 @@ name: Activation
 on: [push]
 jobs:
   requestActivation:
-         name: Activate ${{ matrix.unityVersion }} ✔
-         runs-on: ubuntu-latest
-         strategy:
-           fail-fast: false
-           matrix:
-             unityVersion:
-               - 2019.2.14f1
-         steps:
-           # Checkout repository (required to test local actions)
-           - name: Checkout repository
-             uses: actions/checkout@v2
+    name: Activate ${{ matrix.unityVersion }} ✔
+    runs-on: ubuntu-latest
+    strategy:
+     fail-fast: false
+     matrix:
+       unityVersion:
+         - 2019.2.14f1
+    steps:
+     # Checkout repository (required to test local actions)
+     - name: Checkout repository
+       uses: actions/checkout@v2
 
-           # Activate Unity
-           - name: Activate Unity
-             uses: game-ci/unity-activate@v1.3
-             with:
-               unityVersion: ${{ matrix.unityVersion }}
+     # Activate Unity
+     - name: Activate Unity
+       uses: game-ci/unity-activate@v1.3
+       with:
+         unityVersion: ${{ matrix.unityVersion }}
