@@ -6,9 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         # Request manual activation file
-        - name: Request manual activation file
-          id: getManualLicenseFile
-          uses: webbertakken/unity-request-manual-activation-file@v1.1
+        - name: Unity - Builder
+          uses: game-ci/unity-builder@v1.5
           with:
             unityVersion: 2019.4.17f1
         # Upload artifact (Unity_v20XX.X.XXXX.alf)
