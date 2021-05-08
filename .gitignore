@@ -7,3 +7,7 @@ Packages/packages-lock.json
 Assets/Ardity
 ProjectSettings/
 !ProjectSettings/ProjectVersion.txt
+*.sln
+obj/
+*.csproj
+.idea

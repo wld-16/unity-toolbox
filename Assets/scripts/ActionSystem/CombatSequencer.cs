@@ -1,9 +1,6 @@
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
 using Enemies;
-using TMPro;
-using UnityEngine.SocialPlatforms;
 using Action = Enemies.Combat.Action;
 using Random = UnityEngine.Random;
 
@@ -20,7 +17,18 @@ public class CombatSequencer
         actions = new Queue<Action>();
         for (int i = 0; i < sequenceLength; i++)
         {
-            actions.Enqueue(GenerateNextAction());
+            switch (mode.generateActionMode)
+            {
+                case GenerateActionMode.InSequence:
+                    actions.Enqueue(GenerateNextSequentialAction());
+                    break;
+                case GenerateActionMode.ByPropability:
+                    actions.Enqueue(GenerateNextAction());
+                    break;
+                case GenerateActionMode.FullRandom:
+                    actions.Enqueue(GenerateRandomNextAction());
+                    break;
+            }
         }
     }
 
@@ -42,9 +50,10 @@ public class CombatSequencer
 
     private Action GenerateNextSequentialAction()
     {
+        Action generateNextSequentialAction = Mode.actions[_actionIndex];
         _actionIndex += 1;
         _actionIndex %= Mode.actions.Count;
-        return Mode.actions[_actionIndex];
+        return generateNextSequentialAction;
     }
 
     private Action GenerateNextAction()
