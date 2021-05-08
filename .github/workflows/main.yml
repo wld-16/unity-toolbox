@@ -24,7 +24,7 @@ jobs:
         unityVersion:
           - 2019.4.14f1
         projectPath:
-          - unity-toolikit
+          - unity-toolbox
     steps:
       ###########################
       #         Checkout        #
