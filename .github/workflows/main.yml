@@ -14,21 +14,21 @@ jobs:
       # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: test-project/Library
-          key: Library-test-project-WebGL
+          path: unity-toolbox/Assets/tests/tests
+          key: Library-test-project-unity-toolkit
 
       # Test
       - name: Run tests
         uses: webbertakken/unity-test-runner@v1.3
         with:
-          projectPath: test-project
+          projectPath: unity-toolbox
           unityVersion: 2019.4.14f1
 
       # Build
       - name: Build project
         uses: webbertakken/unity-builder@v0.10
         with:
-          projectPath: test-project
+          projectPath: unity-toolbox
           unityVersion: 2019.4.14f1
           targetPlatform: Windows
 
