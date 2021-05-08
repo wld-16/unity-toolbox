@@ -46,7 +46,7 @@ jobs:
       # Configure test runner
       - name: Run tests
         id: editMode
-        uses: ./unity-toolkit/Assets/tests
+        uses: ./
         with:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
