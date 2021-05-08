@@ -1,41 +1,48 @@
 name: Actions
 on: [push]
 jobs:
-  readmeWorkflow:
-    name: Readme Workflow ✨
+   testRunnerInEditMode:
+    name: Test edit mode 📝
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2019.4.14f1
+        projectPath:
+          - unity-toolikit
     steps:
-      # Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      ###########################
+      #         Checkout        #
+      ###########################
+      - uses: actions/checkout@v2
         with:
           lfs: true
 
-      # Cache
+      ###########################
+      #          Cache          #
+      ###########################
       - uses: actions/cache@v1.1.0
         with:
-          path: unity-toolbox/Assets/tests/tests
-          key: Library-test-project-unity-toolkit
-
-      # Test
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
+      # Configure test runner
       - name: Run tests
-        uses: webbertakken/unity-test-runner@v1.3
+        id: editMode
+        uses: ./unity-toolkit/Assets/tests
         with:
-          projectPath: unity-toolbox
-          unityVersion: 2019.4.14f1
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: editmode
+          artifactsPath: artifacts/editmode
 
-      # Build
-      - name: Build project
-        uses: webbertakken/unity-builder@v0.10
+      # Upload artifacts
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
         with:
-          projectPath: unity-toolbox
-          unityVersion: 2019.4.14f1
-          targetPlatform: Windows
-
-      # Output
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Build
-          path: build
-
-    
+          name: Test results (edit mode)
+          path: ${{ steps.editMode.outputs.artifactsPath }}
+          retention-days: 14
