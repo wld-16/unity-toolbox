@@ -1,0 +1,9 @@
+*.meta
+scenes/
+Temp/
+Library/
+Logs/
+Packages/packages-lock.json
+Assets/Ardity
+ProjectSettings/
+!ProjectSettings/ProjectVersion.txt
