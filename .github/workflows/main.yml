@@ -17,9 +17,32 @@ jobs:
             name: ${{ steps.getManualLicenseFile.outputs.filePath }}
             path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  requestActivation:
-        name: Request activation ✔
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v2
-          - uses: webbertakken/unity-activate@v1.2
+  testRunnerInEditMode:
+      name: Test in editmode 📝
+      runs-on: ubuntu-latest
+      steps:
+        # Checkout repository (required to test local actions)
+        - uses: actions/checkout@v2
+          with:
+            lfs: true
+
+        # Cache
+        - uses: actions/cache@v1.1.0
+          with:
+            path: test-project/Library
+            key: Library-test-project-${{ matrix.targetPlatform }}
+            restore-keys: |
+              Library-test-project-
+              Library-
+        # Configure test runner
+        - uses: webbertakken/unity-test-runner@v1.3
+          id: testRunner
+          with:
+            projectPath: test-project
+            testMode: editmode
+
+        # Upload artifact
+        - uses: actions/upload-artifact@v1
+          with:
+            name: Test results (edit mode)
+            path: ${{ steps.testRunner.outputs.artifactsPath }}
