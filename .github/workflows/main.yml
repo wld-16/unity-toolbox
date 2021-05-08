@@ -24,7 +24,7 @@ jobs:
         unityVersion:
           - 2019.4.14f1
         projectPath:
-          - unity-toolbox
+          - project-checkout
     steps:
       ###########################
       #         Checkout        #
@@ -46,7 +46,7 @@ jobs:
       # Configure test runner
       - name: Run tests
         id: editMode
-        uses: ./
+        uses: ./project-checkout/Assets/tests
         with:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
