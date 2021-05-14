@@ -8,7 +8,7 @@ using Action = Enemies.Combat.Action;
 
 namespace Tests
 {
-    public class CombatSequencerEditModeTests
+    public class EditModeTests
     {
         private CombatSequencer com;
 
