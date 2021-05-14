@@ -11,6 +11,8 @@ jobs:
           - 2019.4.14f1
         projectPath:
           - ./
+        targetPlatform:
+          - StandaloneWindows64
     steps:
       ###########################
       #         Checkout        #
