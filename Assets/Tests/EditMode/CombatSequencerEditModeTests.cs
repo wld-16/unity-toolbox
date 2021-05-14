@@ -8,9 +8,16 @@ using Action = Enemies.Combat.Action;
 
 namespace Tests
 {
-    public class CombatSequencerTests
+    public class CombatSequencerEditModeTests
     {
         private CombatSequencer com;
+
+            [Test]
+        public void TestTheTruth()
+        {
+          // Then
+          Assert.True(true);
+        }
 
         [Test]
         public void should_ReturnActionAlways100_When_GenerateNextActionByPropability()
